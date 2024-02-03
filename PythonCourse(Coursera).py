@@ -310,3 +310,52 @@ for element in s:
         num_vowels = num_vowels + 1
         
 print(num_vowels)
+
+# Week 4 on Mutattable and Non mutattable way in list and string and String format
+#Write code to add ‘horseback riding’ to the third position (i.e., right before volleyball) in the list sports
+sports = ['cricket', 'football', 'volleyball', 'baseball', 'softball', 'track and field', 'curling', 'ping pong', 'hockey']
+sports.insert(2,'horseback riding')
+print(sports)
+
+# week 4
+# Accumulating through lists
+#For each word in the list verbs, add an -ing ending. Save this new list in a new list, ing.
+verbs = ["kayak", "cry", "walk", "eat", "drink", "fly"]
+
+ing=[]
+
+for s in verbs:
+    ing.append(s + "ing")
+
+print(ing)
+
+#Given the list of numbers, numbs, create a new list of those same numbers increased by 5. Save this new list to the variable newlist.
+numbs = [5, 10, 15, 20, 25]
+newlist=[]
+for i in numbs:
+    newlist.append(i+ 5)
+
+print(newlist)
+# Non mutating
+# Another way of doing it
+for i in numbs:
+    newlist =newlist +[i+5]
+
+print(newlist)
+
+#Given the list of numbers, numbs, modifiy the list numbs so that each of the original numbers are increased by 5. Note this is not an accumulator pattern problem, but its a good review
+numbs = [5, 10, 15, 20, 25]
+
+    
+print(numbs)
+numbs[0:5]=[10,15,20,25,30]
+print(numbs)
+#Assign an empty string to the variable output. Using the range function, write code to make it so that the variable output has 35 a s inside it (like "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"). Hint: use the accumulation pattern!
+output="" #here do not give space inside the string if you give it will show extra space in th result
+
+for i in range(35):
+    a= i
+    output = output + "a"
+    
+print(output)
+print(len(output))
