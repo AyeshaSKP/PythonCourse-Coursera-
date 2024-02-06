@@ -66,5 +66,55 @@ print(first_forty)
 print(len(first_forty))       
 
 # correct way
+file = open("emotion_words2.txt", "r")
+first_forty = file.read(40)
+print(first_forty)
 
-        
+ #   The textfile, travel_plans.txt, contains the summer travel plans for someone with some commentary. Find the total number of characters in the file and save to the variable num.
+  file = open("travel_plans.txt", "r")
+num = 0
+
+for line in file:
+    for char in line:
+        num = num + 1
+print(num)
+
+#We have provided a file called emotion_words.txt that contains lines of words that describe emotions. Find the total number of words in the file and assign this value to the variable num_words.
+file = open("emotion_words.txt", "r")
+contents = file.readlines()
+num_words = 0
+
+for line in contents:
+    num_words = num_words + len(line.split())
+    
+print(num_words)
+
+#Assign to the variable num_lines the number of lines in the file school_prompt.txt.
+file = open("school_prompt.txt", "r")
+
+num_lines = 0
+
+for line in file:
+    num_lines = num_lines +1
+    
+print(num_lines)
+
+#Using the file school_prompt.txt, assign the third word of every line to a list called three.
+
+file = open ("school_prompt.txt","r")
+three = []
+
+for line in file:
+    three.append(line.split()[2])
+    
+print(three)
+
+# Using the file school_prompt.txt, if the character ‘p’ is in a word, then add the word to a list called p_words.
+file = open("school_prompt.txt","r")
+p_words=[]
+for line in file:
+    word= line.split()
+    for w in word:
+        if 'p' in w:
+            p_words.append(w)
+print(p_words)
