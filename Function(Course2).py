@@ -54,3 +54,54 @@ def count(list):
 
 y = [2,4,6,9,0,5,6,9]
 print(count(y))
+
+#Write a function called int_return that takes an integer as input and returns the same integer.
+def int_return(int):
+    return int
+
+int_return(12)
+
+#Write a function called add that takes any number as its input and returns that sum with 2 added.
+def add(int):
+    return int +2
+print(add(2))
+
+#Write a function called change that takes any string, adds “Nice to meet you!” to the end of the argument given, and returns that new string.
+def change(string):
+    return("{}Nice to meet you!".format(string))
+print(change("Ayehsa"))
+
+#Write a function, accum, that takes a list of integers as input and returns the sum of those integers.
+
+def accum(list):
+    accum = 0
+    for element in list:
+        accum = accum +element
+    return accum
+y= [1,2,3]
+print(accum(y))
+
+#Write a function, length, that takes in a list as the input. If the length of the list is greater than or equal to 5, return “Longer than 5”. If the length is less than 5, return “Less than 5”.
+def length(list):
+    if len(list) >= 5:
+        return("Longer than 5")
+    else:
+        return("Less than 5")
+    
+    return len(list)
+
+y= [1,2,4,7,9,0,4,6,8]
+newY = length(y)
+print(newY)
+
+
+#You will need to write two functions for this problem. The first function, divide that takes in any number and returns that same number divided by 2. The second function called sum should take any number, divide it by 2, and add 6. It should return this new number. You should call the divide function within the sum function. Do not worry about decimals.
+# here int are different for two different functions
+def divide(int):
+    return (int//2)
+
+def sum(int):
+    a = divide(int)
+    return a + 2
+
+print(sum(100))
