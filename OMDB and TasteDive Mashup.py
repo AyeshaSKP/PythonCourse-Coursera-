@@ -124,3 +124,156 @@ print(get_related_titles(["Black Panther", "Captain Marvel"]))
 #Define a function called get_movie_data. It takes in one parameter which is a string that should represent the title of a movie you want to search. The function should return a dictionary with information about that movie.
 
 #Again, use requests_with_caching.get(). For the queries on movies that are already in the cache, you won’t need an api key. You will need to provide the following keys: t and r. As with the TasteDive cache, be sure to only include those two parameters in order to extract existing data from the cache.
+import json
+import requests_with_caching
+
+
+def get_movie_data(movie):
+    baseurl="http://www.omdbapi.com/"
+    param_dic={}
+    param_dic["t"]=movie
+    #param_dic["q"]="name"
+    #param_dic["type"]="movies"
+    #param_dic["limit"]=5
+    param_dic["r"]='json'
+    #permanent_cache_file="movies_Cache.txt"
+    response=requests_with_caching.get(baseurl,params=param_dic)
+    print(response.url)
+    #py_dic = json.loads(response.text)
+    #return py_dic
+    return response.json()
+
+print(get_movie_data("Venom"))
+print(get_movie_data("Deadpool 2"))
+print(get_movie_data("Baby Mama"))
+
+#Please copy the completed function from above into this active code window. Now write a function called get_movie_rating. It takes an OMDB dictionary result for one movie and extracts the Rotten Tomatoes rating as an integer. For example, if given the OMDB dictionary for “Black Panther”, it would return 97. If there is no Rotten Tomatoes rating, return 0.
+
+# some invocations that we use in the automated tests; uncomment these if you are getting errors and want better error messages
+#get_movie_rating(get_movie_data("Deadpool 2"))
+
+# some invocations that we use in the automated tests; uncomment these if you are getting errors and want better error messages
+# get_movie_data("Venom")
+# get_movie_data("Baby Mama")
+
+import json
+import requests_with_caching
+
+
+def get_movie_data(movie):
+    baseurl="http://www.omdbapi.com/"
+    param_dic={}
+    param_dic["t"]=movie
+    #param_dic["q"]="name"
+    #param_dic["type"]="movies"
+    #param_dic["limit"]=5
+    param_dic["r"]='json'
+    #permanent_cache_file="movies_Cache.txt"
+    response=requests_with_caching.get(baseurl,params=param_dic)
+    print(response.url)
+    #py_dic = json.loads(response.text)
+    #return py_dic
+    return response.json()
+
+def get_movie_rating(m):
+    for l in m["Ratings"]:
+        if l["Source"]=="Rotten Tomatoes":
+            v= l["Value"].replace("%","")
+            print(type(v))
+            v1=int(v)
+            print(type(v1))
+            return v1
+    else:
+            return 0
+    
+ 
+print(get_movie_rating(get_movie_data("Deadpool 2")))
+print(get_movie_rating(get_movie_data("Black Panther")))
+
+    
+
+#Now, you’ll put it all together. Don’t forget to copy all of the functions that you have previously defined into this code window. Define a function get_sorted_recommendations. It takes a list of movie titles as an input. It returns a sorted list of related movie titles as output, up to five related movies for each input movie title. The movies should be sorted in descending order by their Rotten Tomatoes rating, as returned by the get_movie_rating function. Break ties in reverse alphabetic order, so that ‘Yahşi Batı’ comes before ‘Eyyvah Eyvah’.
+
+# some invocations that we use in the automated tests; uncomment these if you are getting errors and want better error messages
+ #get_sorted_recommendations(["Bridesmaids", "Sherlock Holmes"])
+import json
+import requests_with_caching
+
+import json
+import requests_with_caching
+
+
+def get_movies_from_tastedive(movie):
+    baseurl="https://tastedive.com/api/similar"
+    param_dic={}
+    param_dic["q"]=movie
+    #param_dic["q"]="name"
+    param_dic["type"]="movies"
+    param_dic["limit"]=5
+    #permanent_cache_file="movies_Cache.txt"
+    response=requests_with_caching.get("https://tastedive.com/api/similar",params=param_dic)
+    print(response.url)
+    #py_dic = json.loads(response.text)
+    #return py_dic
+    return response.json()
+
+def extract_movie_titles(movie):
+    #q=get_movies_from_tastedive(movie)
+    moviess=[]
+    
+    for n in movie['Similar']['Results']:
+        moviess.append(n['Name'])
+     
+    return moviess
+def get_related_titles(list_movie):
+    related_movies=[]
+    
+    for l in list_movie:
+        function1=get_movies_from_tastedive(l)
+        function2 = extract_movie_titles(function1)
+        for e in function2:
+            related_movies.append(e)
+    return list(set(related_movies))
+
+
+print(get_related_titles(["Black Panther", "Captain Marvel"]))
+
+def get_movie_data(movie):
+    baseurl="http://www.omdbapi.com/"
+    param_dic={}
+    param_dic["t"]=movie
+    #param_dic["q"]="name"
+    #param_dic["type"]="movies"
+    #param_dic["limit"]=5
+    param_dic["r"]='json'
+    #permanent_cache_file="movies_Cache.txt"
+    response=requests_with_caching.get(baseurl,params=param_dic)
+    print(response.url)
+    #py_dic = json.loads(response.text)
+    #return py_dic
+    return response.json()
+
+def get_movie_rating(m):
+    for l in m["Ratings"]:
+        if l["Source"]=="Rotten Tomatoes":
+            v= l["Value"].replace("%","")
+            print(type(v))
+            v1=int(v)
+            print(type(v1))
+            return v1
+    else:
+            return 0
+    
+ 
+print(get_movie_rating(get_movie_data("Deadpool 2")))
+print(get_movie_rating(get_movie_data("Black Panther")))
+
+    
+
+def get_sorted_recommendations(st):
+    #sorted(list_of_movies,key=
+    a= get_related_titles(st)
+    
+    i=(sorted(a,key=lambda x:(get_movie_rating(get_movie_data(x)),x),reverse=True))
+    return i
+print(get_sorted_recommendations(["Bridesmaids", "Sherlock Holmes"]))
